@@ -1,0 +1,247 @@
+@charset "UTF-8";
+
+/* --- VARIÁVEIS --- */
+:root {
+    --bg-page: #f5f7fa;
+    --bg-form: #ffffff;
+    --text-primary: #262626;
+    --text-secondary: #555555;
+    --border-color: #ced4da;
+    --border-radius: 3px;
+    --accent-color: #3498db;
+    --header-bg: #eef2f8;
+    --sidebar-bg: #2c3e50;
+    --sidebar-text: #ecf0f1;
+}
+
+/* --- GERAL --- */
+body {
+    margin: 0; padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    
+    /* --- NOVO BACKGROUND PONTILHADO (ESTILO ENGENHARIA) --- */
+    background-color: var(--bg-page); /* Cor base clara (#f5f7fa) */
+    /* Cria um pontinho sutil de 1px de cor acinzentada (#bdc3c7) */
+    background-image: radial-gradient(#bdc3c7 1.5px, transparent 1.5px);
+    /* Define o espaçamento do grid (20px x 20px) */
+    background-size: 20px 20px;
+    /* Opcional: centraliza o padrão para ficar simétrico */
+    background-position: center center;
+
+    display: flex; height: 100vh; overflow: hidden;
+    font-size: 13px;
+}
+
+/* --- SIDEBAR ESQUERDA --- */
+.sidebar {
+    width: 250px; flex-shrink: 0;
+    background-color: var(--sidebar-bg); color: var(--sidebar-text);
+    padding: 15px; display: flex; flex-direction: column;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1); z-index: 10;
+}
+.sidebar h2 {
+    font-size: 14px; text-transform: uppercase; letter-spacing: 1px;
+    margin-bottom: 20px; text-align: center; border-bottom: 1px solid #34495e;
+    padding-bottom: 10px; color: #bdc3c7;
+}
+.draggable-item {
+    background-color: #34495e; padding: 10px 12px; margin-bottom: 8px;
+    border-radius: var(--border-radius); cursor: grab; transition: all 0.2s;
+    display: flex; align-items: center; font-size: 13px; border: 1px solid transparent;
+}
+.draggable-item:hover { background-color: #4b6584; border-left: 3px solid var(--accent-color); }
+.draggable-item i { margin-right: 10px; color: var(--accent-color); font-weight: bold; width: 15px; text-align: center;}
+
+/* Footer da Sidebar Esquerda */
+.footer-msg { margin-top: auto; font-size: 11px; color: #95a5a6; text-align: center; }
+
+/* Link do LinkedIn */
+.linkedin-link {
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    margin-top: 10px; color: #bdc3c7; text-decoration: none;
+    font-weight: bold; padding: 8px; border-radius: 4px;
+    transition: background 0.2s;
+}
+.linkedin-link:hover { background: #34495e; color: #fff; }
+.linkedin-link svg { fill: currentColor; }
+
+/* --- SIDEBAR DIREITA (ESTRUTURA) --- */
+.structure-sidebar {
+    width: 250px; flex-shrink: 0;
+    background-color: #1e272e;
+    color: #d2dae2;
+    padding: 15px; 
+    
+    /* Configuração Flex para o botão ficar embaixo */
+    display: flex; 
+    flex-direction: column;
+    
+    box-shadow: -2px 0 5px rgba(0,0,0,0.1); z-index: 10;
+    border-left: 1px solid #485460;
+}
+
+.structure-sidebar h2 {
+    font-size: 14px; text-transform: uppercase; letter-spacing: 1px;
+    margin-bottom: 20px; text-align: center; border-bottom: 1px solid #485460;
+    padding-bottom: 10px; color: #bdc3c7;
+}
+
+/* Área de conteúdo rolável da sidebar direita */
+#structureContent {
+    flex: 1; /* Ocupa o espaço restante */
+    overflow-y: auto; /* Rola se tiver muitos itens */
+    margin-bottom: 15px;
+}
+
+/* --- BOTÃO DE DOWNLOAD (Verde Excel com Design do App) --- */
+.btn-download {
+    width: 100%;
+    padding: 12px;
+    
+    /* ALTERADO: Cor Verde específica para download/excel */
+    background-color: #494a4e; 
+    color: white;
+    
+    border: none;
+    border-radius: var(--border-radius); /* Usa o arredondamento padrão do app (3px) */
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 13px;
+    text-transform: uppercase; /* Estilo de texto do sistema */
+    letter-spacing: 0.5px;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+    
+    flex-shrink: 0;
+    margin-top: auto;
+}
+
+.btn-download:hover {
+    /* Verde levemente mais escuro no hover */
+    background-color: #219150; 
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.btn-download:active {
+    transform: translateY(1px);
+    box-shadow: none;
+}
+
+/* Cards de Informação */
+.info-card {
+    background: #2f3640; border-left: 3px solid #3498db;
+    padding: 10px; margin-bottom: 10px; border-radius: 3px;
+    font-size: 12px; font-family: Consolas, monospace;
+}
+.info-line { margin-bottom: 4px; display: flex; justify-content: space-between; }
+.info-label { color: #808e9b; }
+.info-value { color: #fff; font-weight: bold; text-align: right; max-width: 140px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
+.info-hl { color: #f1c40f; }
+
+/* --- MAIN CANVAS --- */
+.main-content { 
+    flex: 1; padding: 30px; overflow: auto; display: flex; 
+    justify-content: center; align-items: flex-start; 
+}
+
+.form-canvas {
+    background-color: var(--bg-form); 
+    width: 850px;
+    min-width: 320px; min-height: 600px;
+    border: 1px solid #d1d1d1; border-radius: var(--border-radius);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05); position: relative;
+    display: flex; flex-wrap: wrap; align-content: flex-start; gap: 0;
+    padding: 0 0 40px 0;
+    margin-bottom: 50px;
+}
+.form-canvas.drag-over { border-color: var(--accent-color); box-shadow: 0 0 10px rgba(52, 152, 219, 0.2); }
+
+/* --- HEADER --- */
+.form-header {
+    width: 100%; background-color: var(--header-bg); border-bottom: 1px solid #dcdcdc;
+    padding: 10px 20px; margin-bottom: 20px; border-radius: var(--border-radius) var(--border-radius) 0 0;
+}
+.form-header h1 { margin: 0; font-size: 14px; font-weight: 700; color: #405c82; }
+.empty-message { width: 100%; text-align: center; color: #95a5a6; margin-top: 50px; pointer-events: none; font-style: italic; }
+
+/* --- GRUPO DO CAMPO (ITEM) --- */
+.form-group {
+    position: relative; 
+    padding: 15px 20px; 
+    width: 98%; 
+    margin: 0 0 10px 0;
+    box-sizing: border-box;
+    transition: background 0.2s; background: #fff; border: 1px solid transparent;
+}
+.form-group:hover { background-color: #f8f9fa; z-index: 5; }
+.form-group.dragging { opacity: 0.5; background-color: #ecf0f1; border: 1px dashed #95a5a6; }
+
+/* --- LABEL E OBRIGATORIEDADE --- */
+.form-group label {
+    display: block; margin-bottom: 6px; font-size: 13px; font-weight: 700;
+    color: var(--text-primary); cursor: text; position: relative; width: fit-content;
+}
+.form-group.required-active label::after { content: " *"; color: #d9534f; font-weight: bold; margin-left: 2px; }
+
+/* --- INPUTS --- */
+.form-control {
+    width: 100%; padding: 6px 10px; font-size: 13px; color: var(--text-secondary);
+    background-color: #fff; border: 1px solid var(--border-color);
+    border-radius: var(--border-radius); box-sizing: border-box; pointer-events: none;
+    min-height: 34px;
+}
+textarea.form-control { resize: none; height: 100px; }
+input[type="file"].form-control { border: 2px dashed #d1d1d1; background-color: #f8f9fa; height: 80px; display: flex; align-items: center; justify-content: center; padding: 20px; color: #888; }
+
+/* --- BARRA DE OPÇÕES --- */
+.field-options {
+    position: absolute; top: -10px; right: 30px;
+    background-color: #2c3e50; color: #fff; 
+    padding: 4px 10px; border-radius: 3px; font-size: 11px;
+    display: none; align-items: center; gap: 15px; 
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2); z-index: 10;
+}
+.field-options::after { content: ""; position: absolute; top: 100%; right: 10px; border-width: 5px; border-style: solid; border-color: #2c3e50 transparent transparent transparent; }
+.form-group:hover .field-options { display: flex; }
+
+.option-checkbox { color: #ffffff !important; cursor: pointer; display: flex; align-items: center; gap: 4px; user-select: none; margin: 0 !important; }
+.option-checkbox input { margin: 0; cursor: pointer; }
+
+/* --- OUTROS CONTROLES --- */
+.move-handle { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 30px; height: 10px; background-color: #e0e0e0; cursor: move; border-radius: 0 0 4px 4px; display: none; z-index: 4; }
+.form-group:hover .move-handle { display: block; }
+
+.remove-btn { position: absolute; top: -10px; right: 0px; background: #e74c3c; color: white; border: none; width: 24px; height: 24px; border-radius: 3px; cursor: pointer; display: none; align-items: center; justify-content: center; font-size: 12px; z-index: 11; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+.form-group:hover .remove-btn { display: flex; }
+
+.field-resizer { width: 8px; height: 100%; position: absolute; right: 0; top: 0; cursor: col-resize; z-index: 6; }
+.form-group:hover .field-resizer { background: rgba(0,0,0,0.05); }
+
+/* --- EDITOR RICO --- */
+.rich-editor-container { width: 100%; border: 1px solid var(--border-color); border-radius: var(--border-radius); background: #fff; display: flex; flex-direction: column; }
+.rich-toolbar { background-color: #f9f9f9; border-bottom: 1px solid #e5e5e5; padding: 5px 8px; display: flex; align-items: center; gap: 4px; flex-wrap: wrap; }
+.rt-btn { border: 1px solid transparent; background: transparent; cursor: pointer; padding: 2px 5px; border-radius: 2px; color: #444; font-size: 14px; font-family: serif; min-width: 24px; text-align: center; display: flex; align-items: center; justify-content: center; }
+.rt-separator { width: 1px; height: 16px; background: #ddd; margin: 0 4px; }
+.rich-content-area { min-height: 120px; padding: 10px; }
+
+/* --- CANVAS RESIZER --- */
+.canvas-resizer { width: 12px; height: 100%; background: #e9ecef; position: absolute; right: 0; top: 0; cursor: ew-resize; border-left: 1px solid #dee2e6; display: flex; align-items: center; justify-content: center; }
+.width-display { position: absolute; bottom: 10px; right: 20px; background: #333; color: #fff; padding: 2px 5px; font-size: 10px; border-radius: 3px; opacity: 0; }
+.canvas-resizer:active .width-display { opacity: 1; }
+
+/* --- GERENCIADOR DE OPÇÕES --- */
+.options-manager { margin-top: 5px; padding: 5px 10px; background-color: #f8f9fa; border-radius: 4px; border: 1px solid #eee; }
+.btn-toggle-options { background: none; border: none; color: #3498db; cursor: pointer; font-size: 11px; font-weight: 600; padding: 2px 0; display: flex; align-items: center; gap: 5px; width: 100%; text-align: left; }
+.btn-toggle-options:hover { text-decoration: underline; }
+.options-content { display: none; margin-top: 10px; padding-top: 10px; border-top: 1px dashed #dcdcdc; animation: fadeIn 0.3s ease; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
+.add-option-group { display: flex; gap: 5px; margin-bottom: 8px; }
+.add-option-group input { flex: 1; padding: 4px; border: 1px solid #ccc; border-radius: 3px; font-size: 12px; }
+.btn-add-opt { background: #2ecc71; color: white; border: none; padding: 0 10px; border-radius: 3px; cursor: pointer; font-weight: bold; }
+.options-list-preview { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 5px; }
+.opt-chip { background: #fff; border: 1px solid #dcdcdc; padding: 2px 6px; border-radius: 10px; font-size: 11px; color: #333; display: flex; align-items: center; gap: 5px; }
+.opt-remove { color: #e74c3c; cursor: pointer; font-weight: bold; font-size: 10px; }
