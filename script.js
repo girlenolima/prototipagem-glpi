@@ -433,3 +433,58 @@ function exportToCSV() {
     link.click();
     document.body.removeChild(link);
 }
+
+// --- FUNÇÃO DE COPIAR PARA CLIPBOARD ---
+function copyToClipboard(btnElement) {
+    const fields = document.querySelectorAll('#formCanvas .form-group');
+    
+    if (fields.length === 0) {
+        alert("O formulário está vazio! Nada para copiar.");
+        return;
+    }
+
+    // Cabeçalho (Separado por TAB \t para colar colunado no Excel)
+    let textData = "Ordem\tNome do Campo\tTipo\tObrigatório\tOpções (Se houver)\n";
+
+    fields.forEach((field, index) => {
+        // 1. Pega os dados (mesma lógica do CSV)
+        const type = field.getAttribute('data-field-type') || 'desconhecido';
+        
+        const labelEl = field.querySelector('.editable-label');
+        let labelText = labelEl ? labelEl.innerText.trim() : 'Sem Título';
+        // Remove quebras de linha e tabs do texto para não quebrar a colagem
+        labelText = labelText.replace(/[\r\n\t]+/g, " ");
+
+        const isRequired = field.classList.contains('required-active') ? 'Sim' : 'Não';
+        
+        // 2. Opções
+        let optionsStr = "";
+        if (type === 'select' || type === 'radio') {
+            const selectEl = field.querySelector('select.main-select');
+            if (selectEl && selectEl.options.length > 0) {
+                const optionsArr = Array.from(selectEl.options).map(opt => opt.text);
+                optionsStr = optionsArr.join('; '); // Ponto e vírgula separa as opções dentro da célula
+            }
+        }
+
+        // 3. Monta a linha com TABs
+        let row = `${index + 1}\t${labelText}\t${traduzirTipo(type)}\t${isRequired}\t${optionsStr}`;
+        textData += row + "\n";
+    });
+
+    // 4. Copia para a área de transferência
+    navigator.clipboard.writeText(textData).then(() => {
+        // Feedback Visual no Botão
+        const originalText = btnElement.innerText;
+        btnElement.innerText = "✅ Copiado!";
+        btnElement.style.backgroundColor = "#27ae60"; // Verde temporário
+        
+        setTimeout(() => {
+            btnElement.innerText = originalText;
+            btnElement.style.backgroundColor = ""; // Volta a cor original (Azul)
+        }, 2000);
+    }).catch(err => {
+        console.error('Erro ao copiar: ', err);
+        alert("Erro ao copiar. Seu navegador pode não suportar essa função.");
+    });
+}
