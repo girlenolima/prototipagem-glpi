@@ -16,673 +16,230 @@
 
 /* --- GERAL --- */
 body {
-    margin: 0;
-    padding: 0;
+    margin: 0; padding: 0;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-
-    /* --- NOVO BACKGROUND PONTILHADO (ESTILO ENGENHARIA) --- */
     background-color: var(--bg-page);
-    /* Cor base clara (#f5f7fa) */
-    /* Cria um pontinho sutil de 1px de cor acinzentada (#bdc3c7) */
     background-image: radial-gradient(#bdc3c7 1.5px, transparent 1.5px);
-    /* Define o espaçamento do grid (20px x 20px) */
     background-size: 20px 20px;
-    /* Opcional: centraliza o padrão para ficar simétrico */
     background-position: center center;
-
-    display: flex;
-    height: 100vh;
-    overflow: hidden;
-    font-size: 13px;
+    display: flex; height: 100vh; overflow: hidden; font-size: 13px;
 }
 
 /* --- SIDEBAR ESQUERDA --- */
 .sidebar {
-    width: 250px;
-    flex-shrink: 0;
-    background-color: var(--sidebar-bg);
-    color: var(--sidebar-text);
-    padding: 15px;
-    display: flex;
-    flex-direction: column;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-    z-index: 10;
+    width: 250px; flex-shrink: 0;
+    background-color: var(--sidebar-bg); color: var(--sidebar-text);
+    padding: 15px; display: flex; flex-direction: column;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); z-index: 10;
 }
-
 .sidebar h2 {
-    font-size: 14px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 20px;
-    text-align: center;
-    border-bottom: 1px solid #34495e;
-    padding-bottom: 10px;
-    color: #bdc3c7;
+    font-size: 14px; text-transform: uppercase; letter-spacing: 1px;
+    margin-bottom: 20px; text-align: center; border-bottom: 1px solid #34495e;
+    padding-bottom: 10px; color: #bdc3c7;
 }
-
 .draggable-item {
-    background-color: #34495e;
-    padding: 10px 12px;
-    margin-bottom: 8px;
-    border-radius: var(--border-radius);
-    cursor: grab;
-    transition: all 0.2s;
-    display: flex;
-    align-items: center;
-    font-size: 13px;
-    border: 1px solid transparent;
+    background-color: #34495e; padding: 10px 12px; margin-bottom: 8px;
+    border-radius: var(--border-radius); cursor: grab; transition: all 0.2s;
+    display: flex; align-items: center; font-size: 13px; border: 1px solid transparent;
 }
+.draggable-item:hover { background-color: #4b6584; border-left: 3px solid var(--accent-color); }
+.draggable-item i { margin-right: 10px; color: var(--accent-color); font-weight: bold; width: 15px; text-align: center; }
 
-.draggable-item:hover {
-    background-color: #4b6584;
-    border-left: 3px solid var(--accent-color);
-}
-
-.draggable-item i {
-    margin-right: 10px;
-    color: var(--accent-color);
-    font-weight: bold;
-    width: 15px;
-    text-align: center;
-}
-
-/* Footer da Sidebar Esquerda */
-.footer-msg {
-    margin-top: auto;
-    font-size: 11px;
-    color: #95a5a6;
-    text-align: center;
-}
-
-/* Link do LinkedIn */
+.footer-msg { margin-top: auto; font-size: 11px; color: #95a5a6; text-align: center; }
 .linkedin-link {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    margin-top: 10px;
-    color: #bdc3c7;
-    text-decoration: none;
-    font-weight: bold;
-    padding: 8px;
-    border-radius: 4px;
-    transition: background 0.2s;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    margin-top: 10px; color: #bdc3c7; text-decoration: none;
+    font-weight: bold; padding: 8px; border-radius: 4px; transition: background 0.2s;
 }
+.linkedin-link:hover { background: #34495e; color: #fff; }
+.linkedin-link svg { fill: currentColor; }
 
-.linkedin-link:hover {
-    background: #34495e;
-    color: #fff;
-}
-
-.linkedin-link svg {
-    fill: currentColor;
-}
-
-/* --- SIDEBAR DIREITA (ESTRUTURA) --- */
+/* --- SIDEBAR DIREITA (ESTRUTURA & PROPRIEDADES) --- */
 .structure-sidebar {
-    width: 250px;
-    flex-shrink: 0;
-    background-color: #1e272e;
-    color: #d2dae2;
-    padding: 15px;
-
-    /* Configuração Flex para o botão ficar embaixo */
-    display: flex;
-    flex-direction: column;
-
-    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
-    z-index: 10;
+    width: 350px; flex-shrink: 0;
+    background-color: #1e272e; color: #d2dae2;
+    padding: 15px; display: flex; flex-direction: column;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1); z-index: 10;
     border-left: 1px solid #485460;
 }
-
 .structure-sidebar h2 {
-    font-size: 14px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 20px;
-    text-align: center;
-    border-bottom: 1px solid #485460;
-    padding-bottom: 10px;
-    color: #bdc3c7;
+    font-size: 14px; text-transform: uppercase; letter-spacing: 1px;
+    margin-bottom: 20px; text-align: center; border-bottom: 1px solid #485460;
+    padding-bottom: 10px; color: #bdc3c7;
 }
 
-/* Área de conteúdo rolável da sidebar direita */
-#structureContent {
-    flex: 1;
-    /* Ocupa o espaço restante */
-    overflow-y: auto;
-    /* Rola se tiver muitos itens */
+#structureContent { 
+flex: 1;
+    overflow-y: auto; /* Barra vertical automática */
+    overflow-x: hidden; /* Esconde barra horizontal */
     margin-bottom: 15px;
+    
+    /* O SEGREDO ESTÁ AQUI: */
+    padding-right: 10px; /* Cria um corredor de segurança para a barra */
+    padding-left: 2px; /* Pequeno ajuste visual na esquerda */
 }
 
-/* --- BOTÃO DE DOWNLOAD (Verde Excel com Design do App) --- */
-.btn-download {
-    width: 100%;
-    padding: 12px;
-
-    /* ALTERADO: Cor Verde específica para download/excel */
-    background-color: #494a4e;
-    color: white;
-
-    border: none;
-    border-radius: var(--border-radius);
-    /* Usa o arredondamento padrão do app (3px) */
-    cursor: pointer;
-    font-weight: bold;
-    font-size: 13px;
-    text-transform: uppercase;
-    /* Estilo de texto do sistema */
-    letter-spacing: 0.5px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    transition: all 0.2s ease;
-
-    flex-shrink: 0;
-    margin-top: auto;
-}
-
-.btn-download:hover {
-    /* Verde levemente mais escuro no hover */
-    background-color: #75797c;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-}
-
-.btn-download:active {
-    transform: translateY(1px);
-    box-shadow: none;
-}
-
-/* Cards de Informação */
+/* --- [IMPORTANTE] ESTILO DOS CARDS DE RESUMO --- */
 .info-card {
-    background: #2f3640;
-    border-left: 3px solid #3498db;
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 3px;
+    background-color: #2f3640; /* Fundo escuro */
+    border-left: 4px solid #3498db; /* Borda lateral azul */
+    padding: 12px;
+    margin-bottom: 8px;
+    border-radius: 4px;
+    font-family: Consolas, "Courier New", monospace;
     font-size: 12px;
-    font-family: Consolas, monospace;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.info-card:hover { 
+    background-color: #3d4652; 
+    /* transform: translateX(2px);  <-- REMOVA ISSO (causava o problema) */
+    transform: translateY(-2px); /* Mover para cima é seguro */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* Sombra mais forte para dar profundidade */
 }
 
 .info-line {
-    margin-bottom: 4px;
-    display: flex;
-    justify-content: space-between;
+    display: flex; justify-content: space-between; margin-bottom: 4px;
+    border-bottom: 1px dashed #444; padding-bottom: 2px;
 }
+.info-line:last-child { border-bottom: none; margin-bottom: 0; }
 
-.info-label {
-    color: #808e9b;
-}
-
+.info-label { color: #95a5a6; }
 .info-value {
-    color: #fff;
-    font-weight: bold;
-    text-align: right;
-    max-width: 140px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    color: #ecf0f1; font-weight: bold; text-align: right;
+    max-width: 130px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
+.info-hl { color: #f1c40f; } /* Amarelo para destaque */
 
-.info-hl {
-    color: #f1c40f;
+/* --- INPUTS DA SIDEBAR (MODO EDIÇÃO) --- */
+.prop-group { margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid #485460; }
+.prop-label { display: block; color: #bdc3c7; font-size: 11px; font-weight: bold; margin-bottom: 5px; text-transform: uppercase; }
+.prop-input { width: 100%; padding: 8px; background-color: #2f3640; border: 1px solid #485460; color: #fff; border-radius: 3px; font-size: 12px; box-sizing: border-box; }
+.prop-input:focus { border-color: #3498db; outline: none; }
+.prop-checkbox { display: flex; align-items: center; gap: 8px; color: #fff; cursor: pointer; font-size: 12px; }
+
+/* Lista de Opções na Sidebar */
+.sidebar-options-list { list-style: none; padding: 0; margin-top: 10px; }
+.sidebar-opt-item { background: #2f3640; padding: 5px 8px; margin-bottom: 4px; border-radius: 3px; display: flex; justify-content: space-between; align-items: center; color: #dcdde1; font-size: 12px; border: 1px solid #485460; }
+.sidebar-opt-remove { color: #e74c3c; cursor: pointer; font-weight: bold; }
+.sidebar-opt-remove:hover { color: #c0392b; }
+.btn-add-opt { background: #2ecc71; color: white; border: none; padding: 0 10px; border-radius: 3px; cursor: pointer; font-weight: bold; height: 32px; }
+
+/* Botão Excluir Elemento */
+.btn-delete-element { width: 100%; padding: 10px; background-color: #c0392b; color: white; border: none; border-radius: 3px; margin-top: 10px; cursor: pointer; font-weight: bold; text-transform: uppercase; font-size: 11px; }
+.btn-delete-element:hover { background-color: #e74c3c; }
+
+/* Botões Globais */
+.btn-download, .btn-copy {
+    width: 100%; padding: 12px; color: white; border: none;
+    border-radius: var(--border-radius); cursor: pointer; font-weight: bold;
+    font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    transition: all 0.2s ease; flex-shrink: 0;
 }
+.btn-download { background-color: #494a4e; margin-top: 0; }
+.btn-download:hover { background-color: #75797c; }
+.btn-copy { background-color: #494a4e; margin-top: auto; margin-bottom: 10px; }
+.btn-copy:hover { background-color: #75797c; }
 
 /* --- MAIN CANVAS --- */
-.main-content {
-    flex: 1;
-    padding: 30px;
-    overflow: auto;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-}
-
+.main-content { flex: 1; padding: 30px; overflow: auto; display: flex; justify-content: center; align-items: flex-start; }
 .form-canvas {
-    background-color: var(--bg-form);
-    width: 850px;
-    min-width: 320px;
-    min-height: 600px;
-    border: 1px solid #d1d1d1;
-    border-radius: var(--border-radius);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-    position: relative;
-    display: flex;
-    flex-wrap: wrap;
-    align-content: flex-start;
-    gap: 0;
-    padding: 0 0 40px 0;
-    margin-bottom: 50px;
+    background-color: var(--bg-form); width: 850px; min-width: 320px; min-height: 600px;
+    border: 1px solid #d1d1d1; border-radius: var(--border-radius);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05); position: relative;
+    display: flex; flex-wrap: wrap; align-content: flex-start; gap: 0;
+    padding: 0 0 40px 0; margin-bottom: 50px;
 }
-
-.form-canvas.drag-over {
-    border-color: var(--accent-color);
-    box-shadow: 0 0 10px rgba(52, 152, 219, 0.2);
-}
+.form-canvas.drag-over { border-color: var(--accent-color); box-shadow: 0 0 10px rgba(52, 152, 219, 0.2); }
 
 /* --- HEADER --- */
-.form-header {
-    width: 100%;
-    background-color: var(--header-bg);
-    border-bottom: 1px solid #dcdcdc;
-    padding: 10px 20px;
-    margin-bottom: 20px;
-    border-radius: var(--border-radius) var(--border-radius) 0 0;
-}
-
-.form-header h1 {
-    margin: 0;
-    font-size: 14px;
-    font-weight: 700;
-    color: #405c82;
-}
-
-.empty-message {
-    width: 100%;
-    text-align: center;
-    color: #95a5a6;
-    margin-top: 50px;
-    pointer-events: none;
-    font-style: italic;
-}
+.form-header { width: 100%; background-color: var(--header-bg); border-bottom: 1px solid #dcdcdc; padding: 10px 20px; margin-bottom: 20px; border-radius: var(--border-radius) var(--border-radius) 0 0; }
+.form-header h1 { margin: 0; font-size: 14px; font-weight: 700; color: #405c82; }
+.empty-message { width: 100%; text-align: center; color: #95a5a6; margin-top: 50px; pointer-events: none; font-style: italic; }
 
 /* --- GRUPO DO CAMPO (ITEM) --- */
 .form-group {
-    position: relative;
-    padding: 15px 20px;
+  position: relative;
+    
+    /* 1. DIMINUA O PADDING (Espaço interno) */
+    /* Antes estava: 15px 20px */
+    padding: 8px 15px;  /* Sugestão: 8px em cima/baixo, 15px nos lados */
+
     width: 98%;
-    margin: 0 0 10px 0;
+
+    /* 2. DIMINUA A MARGEM (Espaço entre os itens) */
+    /* Antes estava: 0 0 10px 0 */
+    margin: 0 0 4px 0; /* Sugestão: Apenas 4px de espaço embaixo */
+
     box-sizing: border-box;
-    transition: background 0.2s;
+    transition: background 0.2s, border 0.2s;
     background: #fff;
-    border: 1px solid transparent;
+    border: 2px solid transparent;
+    cursor: pointer;
 }
+.form-group:hover { background-color: #f8f9fa; }
+.form-group.dragging { opacity: 0.5; background-color: #ecf0f1; border: 2px dashed #95a5a6; }
+.form-group.selected { border-color: #3498db; background-color: #f0f8ff; z-index: 5; }
 
-.form-group:hover {
-    background-color: #f8f9fa;
-    z-index: 5;
+/* --- LABEL --- */
+.form-group label.editable-label {
+    display: block; margin-bottom: 6px; font-size: 13px; font-weight: 700;
+    color: var(--text-primary); width: fit-content; pointer-events: none;
 }
-
-.form-group.dragging {
-    opacity: 0.5;
-    background-color: #ecf0f1;
-    border: 1px dashed #95a5a6;
-}
-
-/* --- LABEL E OBRIGATORIEDADE --- */
-.form-group label {
-    display: block;
-    margin-bottom: 6px;
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--text-primary);
-    cursor: text;
-    position: relative;
-    width: fit-content;
-}
-
-.form-group.required-active label::after {
-    content: " *";
-    color: #d9534f;
-    font-weight: bold;
-    margin-left: 2px;
-}
+.form-group.required-active label.editable-label::after { content: " *"; color: #d9534f; font-weight: bold; margin-left: 2px; }
 
 /* --- INPUTS --- */
 .form-control {
-    width: 100%;
-    padding: 6px 10px;
-    font-size: 13px;
-    color: var(--text-secondary);
-    background-color: #fff;
-    border: 1px solid var(--border-color);
-    border-radius: var(--border-radius);
-    box-sizing: border-box;
-    pointer-events: none;
+    width: 100%; padding: 6px 10px; font-size: 13px; color: var(--text-secondary);
+    background-color: #fff; border: 1px solid var(--border-color);
+    border-radius: var(--border-radius); box-sizing: border-box; pointer-events: none;
     min-height: 34px;
 }
+textarea.form-control { resize: none; height: 100px; }
+input[type="file"].form-control { border: 2px dashed #d1d1d1; background-color: #f8f9fa; height: 80px; display: flex; align-items: center; justify-content: center; padding: 20px; color: #888; }
 
-textarea.form-control {
-    resize: none;
-    height: 100px;
+/* --- OUTROS --- */
+.move-handle { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 30px; height: 10px; background-color: #e0e0e0; cursor: move; border-radius: 0 0 4px 4px; display: none; z-index: 4; }
+.form-group:hover .move-handle { display: block; }
+.field-resizer { width: 8px; height: 100%; position: absolute; right: 0; top: 0; cursor: col-resize; z-index: 6; }
+.form-group:hover .field-resizer { background: rgba(0, 0, 0, 0.05); }
+.canvas-resizer { width: 12px; height: 100%; background: #e9ecef; position: absolute; right: 0; top: 0; cursor: ew-resize; border-left: 1px solid #dee2e6; display: flex; align-items: center; justify-content: center; }
+.width-display { position: absolute; bottom: 10px; right: 20px; background: #333; color: #fff; padding: 2px 5px; font-size: 10px; border-radius: 3px; opacity: 0; }
+.canvas-resizer:active .width-display { opacity: 1; }
+
+.rich-editor-container { width: 100%; border: 1px solid var(--border-color); border-radius: var(--border-radius); background: #fff; display: flex; flex-direction: column; }
+.rich-toolbar { background-color: #f9f9f9; border-bottom: 1px solid #e5e5e5; padding: 5px 8px; display: flex; align-items: center; gap: 4px; }
+.rt-btn { border: 1px solid transparent; background: transparent; cursor: pointer; padding: 2px 5px; border-radius: 2px; color: #444; font-size: 14px; font-family: serif; min-width: 24px; text-align: center; }
+.rich-content-area { min-height: 120px; padding: 10px; }
+
+.prop-input, .sidebar-opt-item {
+    box-sizing: border-box; /* Garante que o padding não aumente a largura total */
+    max-width: 100%;
 }
 
-input[type="file"].form-control {
-    border: 2px dashed #d1d1d1;
-    background-color: #f8f9fa;
-    height: 80px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    color: #888;
+/* --- CUSTOM SCROLLBAR (WebKit - Chrome, Edge, Safari) --- */
+
+/* Largura da barra */
+#structureContent::-webkit-scrollbar {
+    width: 8px; /* Bem mais fina que o padrão */
 }
 
-/* --- BARRA DE OPÇÕES --- */
-.field-options {
-    position: absolute;
-    top: -10px;
-    right: 30px;
-    background-color: #2c3e50;
-    color: #fff;
-    padding: 4px 10px;
-    border-radius: 3px;
-    font-size: 11px;
-    display: none;
-    align-items: center;
-    gap: 15px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    z-index: 10;
-}
-
-.field-options::after {
-    content: "";
-    position: absolute;
-    top: 100%;
-    right: 10px;
-    border-width: 5px;
-    border-style: solid;
-    border-color: #2c3e50 transparent transparent transparent;
-}
-
-.form-group:hover .field-options {
-    display: flex;
-}
-
-.option-checkbox {
-    color: #ffffff !important;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    user-select: none;
-    margin: 0 !important;
-}
-
-.option-checkbox input {
-    margin: 0;
-    cursor: pointer;
-}
-
-/* --- OUTROS CONTROLES --- */
-.move-handle {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 30px;
-    height: 10px;
-    background-color: #e0e0e0;
-    cursor: move;
-    border-radius: 0 0 4px 4px;
-    display: none;
-    z-index: 4;
-}
-
-.form-group:hover .move-handle {
-    display: block;
-}
-
-.remove-btn {
-    position: absolute;
-    top: -10px;
-    right: 0px;
-    background: #e74c3c;
-    color: white;
-    border: none;
-    width: 24px;
-    height: 24px;
-    border-radius: 3px;
-    cursor: pointer;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    font-size: 12px;
-    z-index: 11;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-.form-group:hover .remove-btn {
-    display: flex;
-}
-
-.field-resizer {
-    width: 8px;
-    height: 100%;
-    position: absolute;
-    right: 0;
-    top: 0;
-    cursor: col-resize;
-    z-index: 6;
-}
-
-.form-group:hover .field-resizer {
-    background: rgba(0, 0, 0, 0.05);
-}
-
-/* --- EDITOR RICO --- */
-.rich-editor-container {
-    width: 100%;
-    border: 1px solid var(--border-color);
-    border-radius: var(--border-radius);
-    background: #fff;
-    display: flex;
-    flex-direction: column;
-}
-
-.rich-toolbar {
-    background-color: #f9f9f9;
-    border-bottom: 1px solid #e5e5e5;
-    padding: 5px 8px;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    flex-wrap: wrap;
-}
-
-.rt-btn {
-    border: 1px solid transparent;
-    background: transparent;
-    cursor: pointer;
-    padding: 2px 5px;
-    border-radius: 2px;
-    color: #444;
-    font-size: 14px;
-    font-family: serif;
-    min-width: 24px;
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.rt-separator {
-    width: 1px;
-    height: 16px;
-    background: #ddd;
-    margin: 0 4px;
-}
-
-.rich-content-area {
-    min-height: 120px;
-    padding: 10px;
-}
-
-/* --- CANVAS RESIZER --- */
-.canvas-resizer {
-    width: 12px;
-    height: 100%;
-    background: #e9ecef;
-    position: absolute;
-    right: 0;
-    top: 0;
-    cursor: ew-resize;
-    border-left: 1px solid #dee2e6;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.width-display {
-    position: absolute;
-    bottom: 10px;
-    right: 20px;
-    background: #333;
-    color: #fff;
-    padding: 2px 5px;
-    font-size: 10px;
-    border-radius: 3px;
-    opacity: 0;
-}
-
-.canvas-resizer:active .width-display {
-    opacity: 1;
-}
-
-/* --- GERENCIADOR DE OPÇÕES --- */
-.options-manager {
-    margin-top: 5px;
-    padding: 5px 10px;
-    background-color: #f8f9fa;
+/* O fundo (trilho) por onde a barra corre */
+#structureContent::-webkit-scrollbar-track {
+    background: #1e272e; /* Mesma cor do fundo da sidebar */
     border-radius: 4px;
-    border: 1px solid #eee;
 }
 
-.btn-toggle-options {
-    background: none;
-    border: none;
-    color: #3498db;
-    cursor: pointer;
-    font-size: 11px;
-    font-weight: 600;
-    padding: 2px 0;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    width: 100%;
-    text-align: left;
+/* A "peça" que se move (o polegar) */
+#structureContent::-webkit-scrollbar-thumb {
+    background-color: #485460; /* Cinza um pouco mais claro */
+    border-radius: 4px; /* Bordas arredondadas */
+    border: 2px solid #1e272e; /* Cria um efeito de "espaço" ao redor */
 }
 
-.btn-toggle-options:hover {
-    text-decoration: underline;
-}
-
-.options-content {
-    display: none;
-    margin-top: 10px;
-    padding-top: 10px;
-    border-top: 1px dashed #dcdcdc;
-    animation: fadeIn 0.3s ease;
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(-5px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.add-option-group {
-    display: flex;
-    gap: 5px;
-    margin-bottom: 8px;
-}
-
-.add-option-group input {
-    flex: 1;
-    padding: 4px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    font-size: 12px;
-}
-
-.btn-add-opt {
-    background: #2ecc71;
-    color: white;
-    border: none;
-    padding: 0 10px;
-    border-radius: 3px;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-.options-list-preview {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 5px;
-}
-
-.opt-chip {
-    background: #fff;
-    border: 1px solid #dcdcdc;
-    padding: 2px 6px;
-    border-radius: 10px;
-    font-size: 11px;
-    color: #333;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-
-.opt-remove {
-    color: #e74c3c;
-    cursor: pointer;
-    font-weight: bold;
-    font-size: 10px;
-}
-
-/* --- BOTÃO DE COPIAR (Novo) --- */
-.btn-copy {
-    width: 100%;
-    padding: 12px;
-    background-color: #494a4e;
-    /* Azul */
-    color: white;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
-    font-weight: bold;
-    font-size: 13px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    transition: all 0.2s ease;
-    flex-shrink: 0;
-
-    /* Importante: Empurra tudo para cima e cola no fundo junto com o outro botão */
-    margin-top: auto;
-    margin-bottom: 10px;
-    /* Espaço entre os botões */
-}
-
-.btn-copy:hover {
-    background-color: #75797c;
-}
-
-.btn-copy:active {
-    transform: translateY(1px);
-}
-
-/* --- AJUSTE NO BOTÃO DE DOWNLOAD EXISTENTE --- */
-/* Localize a classe .btn-download existente e REMOVA ou COMENTE a linha: margin-top: auto; */
-/* Pois agora quem faz o papel de empurrar para o fundo é o botão de copiar acima dele. */
-
-.btn-download {
-    /* ... mantenha o resto das propriedades ... */
-
-    /* Se você não remover o margin-top: auto, não tem problema grave, 
-       mas remova para garantir o espaçamento correto */
-    margin-top: 0;
+/* Quando passa o mouse na barra */
+#structureContent::-webkit-scrollbar-thumb:hover {
+    background-color: #57606f;
 }
