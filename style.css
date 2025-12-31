@@ -1,245 +1,555 @@
 @charset "UTF-8";
 
-/* --- VARIÁVEIS --- */
+/* =========================================
+   1. VARIÁVEIS E CORES (TEMA PADRONIZADO)
+   ========================================= */
 :root {
+    /* Cores Base (Baseadas na Sidebar Esquerda) */
+    --color-primary-dark: #2c3e50;    /* Fundo das Sidebars */
+    --color-secondary-dark: #34495e;  /* Fundo dos Itens/Cards */
+    --color-hover: #4b6584;           /* Hover dos Itens */
+    --color-accent: #3498db;          /* Azul Destaque (Bordas/Ícones) */
+    --color-danger: #e74c3c;          /* Vermelho (Excluir/Erro) */
+    --color-success: #2ecc71;         /* Verde (Sucesso/Obrigatório) */
+
+    /* Cores de Texto */
+    --text-light: #ecf0f1;            /* Texto em fundo escuro */
+    --text-muted: #bdc3c7;            /* Texto secundário em fundo escuro */
+    --text-dark: #2c3e50;             /* Texto em fundo claro */
+
+    /* Cores da Página e Canvas */
     --bg-page: #f5f7fa;
-    --bg-form: #ffffff;
-    --text-primary: #262626;
-    --text-secondary: #555555;
-    --border-color: #ced4da;
-    --border-radius: 3px;
-    --accent-color: #3498db;
-    --header-bg: #eef2f8;
-    --sidebar-bg: #2c3e50;
-    --sidebar-text: #ecf0f1;
+    --bg-canvas: #ffffff;
+    --border-color: #dcdcdc;
+    
+    /* Configurações Globais */
+    --sidebar-width-left: 250px;
+    --sidebar-width-right: 300px; /* Ajustei para caber melhor */
+    --border-radius: 4px;
 }
 
-/* --- GERAL --- */
+/* =========================================
+   2. RESET E ESTRUTURA GLOBAL
+   ========================================= */
+* {
+    box-sizing: border-box;
+}
+
 body {
-    margin: 0; padding: 0;
+    margin: 0;
+    padding: 0;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-size: 13px;
     background-color: var(--bg-page);
     background-image: radial-gradient(#bdc3c7 1.5px, transparent 1.5px);
     background-size: 20px 20px;
-    background-position: center center;
-    display: flex; height: 100vh; overflow: hidden; font-size: 13px;
+    color: var(--text-dark);
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
 }
 
-/* --- SIDEBAR ESQUERDA --- */
+/* =========================================
+   3. SIDEBAR ESQUERDA (COMPONENTES)
+   ========================================= */
 .sidebar {
-    width: 250px; flex-shrink: 0;
-    background-color: var(--sidebar-bg); color: var(--sidebar-text);
-    padding: 15px; display: flex; flex-direction: column;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); z-index: 10;
+    width: var(--sidebar-width-left);
+    flex-shrink: 0;
+    background-color: var(--color-primary-dark);
+    color: var(--text-light);
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.15);
+    z-index: 10;
 }
+
 .sidebar h2 {
-    font-size: 14px; text-transform: uppercase; letter-spacing: 1px;
-    margin-bottom: 20px; text-align: center; border-bottom: 1px solid #34495e;
-    padding-bottom: 10px; color: #bdc3c7;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 0 0 20px 0;
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 10px;
+    color: var(--text-muted);
 }
+
 .draggable-item {
-    background-color: #34495e; padding: 10px 12px; margin-bottom: 8px;
-    border-radius: var(--border-radius); cursor: grab; transition: all 0.2s;
-    display: flex; align-items: center; font-size: 13px; border: 1px solid transparent;
+    background-color: var(--color-secondary-dark); /* Cor Padronizada */
+    color: var(--text-light);
+    padding: 10px 12px;
+    margin-bottom: 8px;
+    border-radius: var(--border-radius);
+    cursor: grab;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    border: 1px solid transparent;
 }
-.draggable-item:hover { background-color: #4b6584; border-left: 3px solid var(--accent-color); }
-.draggable-item i { margin-right: 10px; color: var(--accent-color); font-weight: bold; width: 15px; text-align: center; }
 
-.footer-msg { margin-top: auto; font-size: 11px; color: #95a5a6; text-align: center; }
+.draggable-item:hover {
+    background-color: var(--color-hover);
+    border-left: 4px solid var(--color-accent);
+    padding-left: 8px; /* Compensa a borda para não pular */
+}
+
+.draggable-item i {
+    margin-right: 10px;
+    color: var(--color-accent);
+    font-weight: bold;
+    width: 20px;
+    text-align: center;
+}
+
+/* Rodapé da Sidebar */
+.footer-msg {
+    margin-top: auto;
+    font-size: 11px;
+    color: var(--text-muted);
+    text-align: center;
+}
+
 .linkedin-link {
-    display: flex; align-items: center; justify-content: center; gap: 8px;
-    margin-top: 10px; color: #bdc3c7; text-decoration: none;
-    font-weight: bold; padding: 8px; border-radius: 4px; transition: background 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 10px;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-weight: bold;
+    padding: 8px;
+    border-radius: var(--border-radius);
+    transition: background 0.2s;
 }
-.linkedin-link:hover { background: #34495e; color: #fff; }
-.linkedin-link svg { fill: currentColor; }
 
-/* --- SIDEBAR DIREITA (ESTRUTURA & PROPRIEDADES) --- */
+.linkedin-link:hover {
+    background: rgba(255,255,255,0.1);
+    color: #fff;
+}
+
+/* =========================================
+   4. SIDEBAR DIREITA (ESTRUTURA/PROPRIEDADES)
+   ========================================= */
 .structure-sidebar {
-    width: 350px; flex-shrink: 0;
-    background-color: #1e272e; color: #d2dae2;
-    padding: 15px; display: flex; flex-direction: column;
-    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1); z-index: 10;
-    border-left: 1px solid #485460;
+    width: var(--sidebar-width-right);
+    flex-shrink: 0;
+    background-color: var(--color-primary-dark); /* Agora igual à esquerda */
+    color: var(--text-light);
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.15);
+    z-index: 10;
+    border-left: 1px solid rgba(0,0,0,0.2);
 }
+
 .structure-sidebar h2 {
-    font-size: 14px; text-transform: uppercase; letter-spacing: 1px;
-    margin-bottom: 20px; text-align: center; border-bottom: 1px solid #485460;
-    padding-bottom: 10px; color: #bdc3c7;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 0 0 20px 0;
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 10px;
+    color: var(--text-muted);
 }
 
-#structureContent { 
-flex: 1;
-    overflow-y: auto; /* Barra vertical automática */
-    overflow-x: hidden; /* Esconde barra horizontal */
+#structureContent {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
     margin-bottom: 15px;
-    
-    /* O SEGREDO ESTÁ AQUI: */
-    padding-right: 10px; /* Cria um corredor de segurança para a barra */
-    padding-left: 2px; /* Pequeno ajuste visual na esquerda */
+    padding-right: 5px;
 }
 
-/* --- [IMPORTANTE] ESTILO DOS CARDS DE RESUMO --- */
+/* --- Cards de Resumo (Estilo igual ao Draggable Item) --- */
 .info-card {
-    background-color: #2f3640; /* Fundo escuro */
-    border-left: 4px solid #3498db; /* Borda lateral azul */
+    background-color: var(--color-secondary-dark); /* Cor Padronizada */
+    border-left: 4px solid var(--color-accent);
     padding: 12px;
     margin-bottom: 8px;
-    border-radius: 4px;
+    border-radius: var(--border-radius);
     font-family: Consolas, "Courier New", monospace;
     font-size: 12px;
     cursor: pointer;
     transition: all 0.2s ease;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
-.info-card:hover { 
-    background-color: #3d4652; 
-    /* transform: translateX(2px);  <-- REMOVA ISSO (causava o problema) */
-    transform: translateY(-2px); /* Mover para cima é seguro */
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* Sombra mais forte para dar profundidade */
+
+.info-card:hover {
+    background-color: var(--color-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
 .info-line {
-    display: flex; justify-content: space-between; margin-bottom: 4px;
-    border-bottom: 1px dashed #444; padding-bottom: 2px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+    border-bottom: 1px dashed rgba(255,255,255,0.1);
+    padding-bottom: 3px;
 }
-.info-line:last-child { border-bottom: none; margin-bottom: 0; }
-
-.info-label { color: #95a5a6; }
-.info-value {
-    color: #ecf0f1; font-weight: bold; text-align: right;
-    max-width: 130px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+.info-line:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
 }
-.info-hl { color: #f1c40f; } /* Amarelo para destaque */
 
-/* --- INPUTS DA SIDEBAR (MODO EDIÇÃO) --- */
-.prop-group { margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid #485460; }
-.prop-label { display: block; color: #bdc3c7; font-size: 11px; font-weight: bold; margin-bottom: 5px; text-transform: uppercase; }
-.prop-input { width: 100%; padding: 8px; background-color: #2f3640; border: 1px solid #485460; color: #fff; border-radius: 3px; font-size: 12px; box-sizing: border-box; }
-.prop-input:focus { border-color: #3498db; outline: none; }
-.prop-checkbox { display: flex; align-items: center; gap: 8px; color: #fff; cursor: pointer; font-size: 12px; }
+.info-label { color: var(--text-muted); }
+.info-value { color: #fff; font-weight: bold; max-width: 140px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.info-hl { color: var(--color-accent); } /* Destaque azul */
 
-/* Lista de Opções na Sidebar */
-.sidebar-options-list { list-style: none; padding: 0; margin-top: 10px; }
-.sidebar-opt-item { background: #2f3640; padding: 5px 8px; margin-bottom: 4px; border-radius: 3px; display: flex; justify-content: space-between; align-items: center; color: #dcdde1; font-size: 12px; border: 1px solid #485460; }
-.sidebar-opt-remove { color: #e74c3c; cursor: pointer; font-weight: bold; }
-.sidebar-opt-remove:hover { color: #c0392b; }
-.btn-add-opt { background: #2ecc71; color: white; border: none; padding: 0 10px; border-radius: 3px; cursor: pointer; font-weight: bold; height: 32px; }
-
-/* Botão Excluir Elemento */
-.btn-delete-element { width: 100%; padding: 10px; background-color: #c0392b; color: white; border: none; border-radius: 3px; margin-top: 10px; cursor: pointer; font-weight: bold; text-transform: uppercase; font-size: 11px; }
-.btn-delete-element:hover { background-color: #e74c3c; }
-
-/* Botões Globais */
-.btn-download, .btn-copy {
-    width: 100%; padding: 12px; color: white; border: none;
-    border-radius: var(--border-radius); cursor: pointer; font-weight: bold;
-    font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px;
-    display: flex; align-items: center; justify-content: center; gap: 8px;
-    transition: all 0.2s ease; flex-shrink: 0;
+/* --- Inputs do Painel de Propriedades --- */
+.prop-group {
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
 }
-.btn-download { background-color: #494a4e; margin-top: 0; }
-.btn-download:hover { background-color: #75797c; }
-.btn-copy { background-color: #494a4e; margin-top: auto; margin-bottom: 10px; }
-.btn-copy:hover { background-color: #75797c; }
 
-/* --- MAIN CANVAS --- */
-.main-content { flex: 1; padding: 30px; overflow: auto; display: flex; justify-content: center; align-items: flex-start; }
+.prop-label {
+    display: block;
+    color: var(--text-muted);
+    font-size: 11px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+}
+
+.prop-input {
+    width: 100%;
+    padding: 8px;
+    background-color: rgba(0,0,0,0.2); /* Fundo escuro sutil */
+    border: 1px solid var(--color-secondary-dark);
+    color: #fff;
+    border-radius: var(--border-radius);
+    font-size: 12px;
+}
+
+.prop-input:focus {
+    border-color: var(--color-accent);
+    outline: none;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.prop-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-light);
+    cursor: pointer;
+}
+
+/* Lista de Opções (Select/Radio) */
+.sidebar-options-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 10px;
+}
+
+.sidebar-opt-item {
+    background: rgba(0,0,0,0.2);
+    padding: 6px 10px;
+    margin-bottom: 4px;
+    border-radius: var(--border-radius);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--text-light);
+    border: 1px solid transparent;
+}
+
+.sidebar-opt-remove {
+    color: var(--color-danger);
+    cursor: pointer;
+    font-weight: bold;
+}
+.sidebar-opt-remove:hover { color: #ff6b6b; }
+
+.btn-add-opt {
+    background: var(--color-success);
+    color: white;
+    border: none;
+    padding: 0 12px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-weight: bold;
+    height: 32px;
+}
+
+/* Botões de Ação na Sidebar Direita */
+.btn-download, .btn-copy, .btn-delete-element {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 12px;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: background 0.2s;
+    color: #fff;
+}
+
+.btn-copy {
+    background-color: var(--color-secondary-dark);
+    border: 1px solid var(--color-hover);
+    margin-top: auto;
+    margin-bottom: 10px;
+}
+.btn-copy:hover { background-color: var(--color-hover); }
+
+.btn-download {
+    background-color: var(--color-accent);
+}
+.btn-download:hover { background-color: #2980b9; }
+
+.btn-delete-element {
+    background-color: var(--color-danger);
+    margin-top: 15px;
+}
+.btn-delete-element:hover { background-color: #c0392b; }
+
+/* =========================================
+   5. ÁREA PRINCIPAL (CANVAS)
+   ========================================= */
+.main-content {
+    flex: 1;
+    padding: 30px;
+    overflow: auto;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
 .form-canvas {
-    background-color: var(--bg-form); width: 850px; min-width: 320px; min-height: 600px;
-    border: 1px solid #d1d1d1; border-radius: var(--border-radius);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05); position: relative;
-    display: flex; flex-wrap: wrap; align-content: flex-start; gap: 0;
-    padding: 0 0 40px 0; margin-bottom: 50px;
+    background-color: var(--bg-canvas);
+    width: 850px;
+    min-width: 320px;
+    min-height: 800px; /* Aumentado para parecer uma folha A4 */
+    border: 1px solid var(--border-color);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    position: relative;
+    padding-bottom: 40px;
+    margin-bottom: 50px;
 }
-.form-canvas.drag-over { border-color: var(--accent-color); box-shadow: 0 0 10px rgba(52, 152, 219, 0.2); }
 
-/* --- HEADER --- */
-.form-header { width: 100%; background-color: var(--header-bg); border-bottom: 1px solid #dcdcdc; padding: 10px 20px; margin-bottom: 20px; border-radius: var(--border-radius) var(--border-radius) 0 0; }
-.form-header h1 { margin: 0; font-size: 14px; font-weight: 700; color: #405c82; }
-.empty-message { width: 100%; text-align: center; color: #95a5a6; margin-top: 50px; pointer-events: none; font-style: italic; }
+.form-canvas.drag-over {
+    border: 2px dashed var(--color-accent);
+    background-color: rgba(52, 152, 219, 0.05);
+}
 
-/* --- GRUPO DO CAMPO (ITEM) --- */
+/* Header do Formulário */
+.form-header {
+    background-color: #eef2f8; /* Mantido claro para contraste com o papel branco */
+    border-bottom: 1px solid var(--border-color);
+    padding: 20px 30px;
+    margin-bottom: 20px;
+}
+
+.form-header h1 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--color-primary-dark);
+    outline: none;
+}
+
+.form-header p {
+    margin: 5px 0 0 0;
+    color: #7f8c8d;
+    outline: none;
+}
+
+.empty-message {
+    width: 100%;
+    text-align: center;
+    color: #bdc3c7;
+    margin-top: 80px;
+    pointer-events: none;
+    font-style: italic;
+    font-size: 14px;
+}
+
+/* =========================================
+   6. ITENS DO FORMULÁRIO (DROP ZONE)
+   ========================================= */
 .form-group {
-  position: relative;
-    
-    /* 1. DIMINUA O PADDING (Espaço interno) */
-    /* Antes estava: 15px 20px */
-    padding: 8px 15px;  /* Sugestão: 8px em cima/baixo, 15px nos lados */
-
-    width: 98%;
-
-    /* 2. DIMINUA A MARGEM (Espaço entre os itens) */
-    /* Antes estava: 0 0 10px 0 */
-    margin: 0 0 4px 0; /* Sugestão: Apenas 4px de espaço embaixo */
-
-    box-sizing: border-box;
-    transition: background 0.2s, border 0.2s;
-    background: #fff;
+    position: relative;
+    padding: 10px 30px; /* Padding lateral maior para parecer formulário real */
+    margin: 0;
+    transition: background 0.2s;
     border: 2px solid transparent;
     cursor: pointer;
 }
-.form-group:hover { background-color: #f8f9fa; }
-.form-group.dragging { opacity: 0.5; background-color: #ecf0f1; border: 2px dashed #95a5a6; }
-.form-group.selected { border-color: #3498db; background-color: #f0f8ff; z-index: 5; }
 
-/* --- LABEL --- */
+.form-group:hover {
+    background-color: #f8f9fa;
+}
+
+.form-group.selected {
+    border-color: var(--color-accent);
+    background-color: rgba(52, 152, 219, 0.05);
+    z-index: 5;
+}
+
+.form-group.dragging {
+    opacity: 0.5;
+    background-color: #ecf0f1;
+    border: 2px dashed #95a5a6;
+}
+
+/* Label Editável */
 .form-group label.editable-label {
-    display: block; margin-bottom: 6px; font-size: 13px; font-weight: 700;
-    color: var(--text-primary); width: fit-content; pointer-events: none;
+    display: block;
+    margin-bottom: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-dark);
+    pointer-events: none;
 }
-.form-group.required-active label.editable-label::after { content: " *"; color: #d9534f; font-weight: bold; margin-left: 2px; }
 
-/* --- INPUTS --- */
+.form-group.required-active label.editable-label::after {
+    content: " *";
+    color: var(--color-danger);
+}
+
+/* Inputs (Visualização) */
 .form-control {
-    width: 100%; padding: 6px 10px; font-size: 13px; color: var(--text-secondary);
-    background-color: #fff; border: 1px solid var(--border-color);
-    border-radius: var(--border-radius); box-sizing: border-box; pointer-events: none;
-    min-height: 34px;
+    width: 100%;
+    padding: 8px 12px;
+    font-size: 13px;
+    color: #555;
+    background-color: #fff;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    pointer-events: none; /* Desativa interação no canvas */
 }
-textarea.form-control { resize: none; height: 100px; }
-input[type="file"].form-control { border: 2px dashed #d1d1d1; background-color: #f8f9fa; height: 80px; display: flex; align-items: center; justify-content: center; padding: 20px; color: #888; }
 
-/* --- OUTROS --- */
-.move-handle { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 30px; height: 10px; background-color: #e0e0e0; cursor: move; border-radius: 0 0 4px 4px; display: none; z-index: 4; }
+textarea.form-control {
+    resize: none;
+    height: 80px;
+}
+
+/* Estilo específico para Header de Seção */
+.form-group[data-field-type="header"] {
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+
+/* Ferramentas de Edição (Resize/Move) */
+.move-handle {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 6px;
+    background-color: var(--color-accent);
+    cursor: move;
+    border-radius: 0 0 4px 4px;
+    display: none;
+    z-index: 10;
+}
 .form-group:hover .move-handle { display: block; }
-.field-resizer { width: 8px; height: 100%; position: absolute; right: 0; top: 0; cursor: col-resize; z-index: 6; }
-.form-group:hover .field-resizer { background: rgba(0, 0, 0, 0.05); }
-.canvas-resizer { width: 12px; height: 100%; background: #e9ecef; position: absolute; right: 0; top: 0; cursor: ew-resize; border-left: 1px solid #dee2e6; display: flex; align-items: center; justify-content: center; }
-.width-display { position: absolute; bottom: 10px; right: 20px; background: #333; color: #fff; padding: 2px 5px; font-size: 10px; border-radius: 3px; opacity: 0; }
+
+.field-resizer {
+    width: 10px;
+    height: 100%;
+    position: absolute;
+    right: 0;
+    top: 0;
+    cursor: col-resize;
+    z-index: 6;
+}
+.form-group:hover .field-resizer { background: rgba(0, 0, 0, 0.03); }
+
+/* Resizer do Canvas Principal */
+.canvas-resizer {
+    width: 15px;
+    height: 100%;
+    background: #e9ecef;
+    position: absolute;
+    right: -15px;
+    top: 0;
+    cursor: ew-resize;
+    border-left: 1px solid #dee2e6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #aaa;
+}
+.canvas-resizer::after { content: "⋮"; }
+
+.width-display {
+    position: absolute;
+    bottom: -25px;
+    right: 0;
+    background: var(--color-primary-dark);
+    color: #fff;
+    padding: 4px 8px;
+    font-size: 10px;
+    border-radius: 3px;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
 .canvas-resizer:active .width-display { opacity: 1; }
 
-.rich-editor-container { width: 100%; border: 1px solid var(--border-color); border-radius: var(--border-radius); background: #fff; display: flex; flex-direction: column; }
-.rich-toolbar { background-color: #f9f9f9; border-bottom: 1px solid #e5e5e5; padding: 5px 8px; display: flex; align-items: center; gap: 4px; }
-.rt-btn { border: 1px solid transparent; background: transparent; cursor: pointer; padding: 2px 5px; border-radius: 2px; color: #444; font-size: 14px; font-family: serif; min-width: 24px; text-align: center; }
-.rich-content-area { min-height: 120px; padding: 10px; }
-
-.prop-input, .sidebar-opt-item {
-    box-sizing: border-box; /* Garante que o padding não aumente a largura total */
-    max-width: 100%;
+/* =========================================
+   7. RICHTEXT E OUTROS
+   ========================================= */
+.rich-editor-container {
+    width: 100%;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    background: #fff;
 }
-
-/* --- CUSTOM SCROLLBAR (WebKit - Chrome, Edge, Safari) --- */
-
-/* Largura da barra */
-#structureContent::-webkit-scrollbar {
-    width: 8px; /* Bem mais fina que o padrão */
+.rich-toolbar {
+    background-color: #f9f9f9;
+    border-bottom: 1px solid #e5e5e5;
+    padding: 5px;
+    display: flex; gap: 5px;
 }
+.rt-btn {
+    border: 1px solid #ccc;
+    background: #fff;
+    cursor: pointer;
+    padding: 2px 8px;
+    font-weight: bold;
+    font-family: serif;
+}
+.rich-content-area { min-height: 80px; padding: 10px; }
 
-/* O fundo (trilho) por onde a barra corre */
-#structureContent::-webkit-scrollbar-track {
-    background: #1e272e; /* Mesma cor do fundo da sidebar */
+/* =========================================
+   8. SCROLLBARS CUSTOMIZADAS (WEBKIT)
+   ========================================= */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+::-webkit-scrollbar-track {
+    background: rgba(0,0,0,0.1);
+}
+::-webkit-scrollbar-thumb {
+    background-color: rgba(0,0,0,0.2);
     border-radius: 4px;
 }
-
-/* A "peça" que se move (o polegar) */
-#structureContent::-webkit-scrollbar-thumb {
-    background-color: #485460; /* Cinza um pouco mais claro */
-    border-radius: 4px; /* Bordas arredondadas */
-    border: 2px solid #1e272e; /* Cria um efeito de "espaço" ao redor */
+::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(0,0,0,0.4);
 }
 
-/* Quando passa o mouse na barra */
+/* Scrollbar específica para Sidebar (Dark) */
+#structureContent::-webkit-scrollbar-track {
+    background: transparent;
+}
+#structureContent::-webkit-scrollbar-thumb {
+    background-color: rgba(255,255,255,0.2);
+    border: 2px solid var(--color-primary-dark);
+}
 #structureContent::-webkit-scrollbar-thumb:hover {
-    background-color: #57606f;
+    background-color: rgba(255,255,255,0.4);
 }
