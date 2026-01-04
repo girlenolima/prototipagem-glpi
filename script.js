@@ -76,101 +76,53 @@ class FieldFactory {
 }
 
 /**
- * CLASSE 2: PROPERTIES PANEL (Gerencia Sidebar Direita)
+ * CLASSE 2: PROPERTIES PANEL
  */
 class PropertiesPanel {
     static container = document.getElementById('structureContent');
     static activeField = null;
 
-    // ESTADO 1: MODO EDIÇÃO (Quando clica no campo)
+    // ESTADO 1: MODO EDIÇÃO
     static render(fieldElement) {
-    this.activeField = fieldElement;
-    // ... (código de pegar variaveis label, helpText, etc continua igual) ...
-    const type = fieldElement.getAttribute('data-field-type');
-    const label = fieldElement.querySelector('.editable-label').innerText;
-    const helpEl = fieldElement.querySelector('.help-text');
-    const helpText = helpEl ? helpEl.innerText : '';
-    const isRequired = fieldElement.classList.contains('required-active');
-    
-    // AQUI ESTÁ A MUDANÇA: Título "Dados do Formulário"
-    let html = `
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px; padding-bottom:10px; border-bottom:1px solid #444;">
-            <h2 style="margin:0; border:none; font-size:14px;">Dados do Formulário</h2> 
-            <button onclick="InteractionManager.deselectAll()" style="background:none; border:none; color:#e74c3c; cursor:pointer; font-size:11px; font-weight:bold;">✕ FECHAR</button>
-        </div>
-    `;
-
-    // ... (Restante do código dos inputs continua igual) ...
-    // Vou repetir o inicio dos inputs para facilitar a cópia
-    html += `
-        <div class="prop-group">
-            <label class="prop-label">Título do Campo</label>
-            <input type="text" class="prop-input" value="${label}" onkeyup="PropertiesPanel.updateLabel(this.value)">
-        </div>
-        <div class="prop-group">
-            <label class="prop-label">Descrição de Ajuda</label>
-            <input type="text" class="prop-input" value="${helpText}" placeholder="Ex: Instruções..." onkeyup="PropertiesPanel.updateHelp(this.value)">
-        </div>
-    `;
-    
-    // ... (Mantenha os if(type === ...) e o resto da função igual estava antes) ...
-    
-    // Apenas para garantir que o código funcione se você copiar e colar tudo, 
-    // aqui está o resto da função render resumida:
-    if(type === 'text' || type === 'textarea') {
-        const input = fieldElement.querySelector('.form-control');
-        const placeholder = input ? input.placeholder : '';
-        html += `<div class="prop-group"><label class="prop-label">Placeholder (Dica)</label><input type="text" class="prop-input" value="${placeholder}" onkeyup="PropertiesPanel.updatePlaceholder(this.value)"></div>`;
-    }
-    if(type !== 'header') {
-        html += `<div class="prop-group"><label class="prop-checkbox"><input type="checkbox" ${isRequired ? 'checked' : ''} onchange="PropertiesPanel.updateRequired(this.checked)"> Marcar como Obrigatório</label></div>`;
-    }
-    if(type === 'select' || type === 'radio') {
-        html += this._renderOptionsManager(fieldElement);
-    }
-    html += `<button class="btn-delete-element" onclick="PropertiesPanel.deleteActiveField()">🗑 Excluir Campo</button>`;
-
-    this.container.innerHTML = html;
-}
-
-// 2. MODO RESUMO (Lista os itens)
-static renderSummary() {
-    this.activeField = null;
-    this.container.innerHTML = '';
-    const fields = document.querySelectorAll('#formCanvas .form-group');
-
-    if (fields.length === 0) {
-        // Título quando vazio
-        this.container.innerHTML = `
-            <h2 style="margin-bottom:20px;">Resumo do Formulário</h2>
-            <p style="color:#777; font-style:italic; font-size:11px; text-align:center;">
-                Nenhum campo criado. <br>Arraste itens da esquerda.
-            </p>`;
-        return;
-    }
-
-    // Título quando tem itens (mas nenhum selecionado)
-    let listHtml = '<h2 style="margin-bottom:15px;">Resumo do Formulário</h2>';
-    
-    fields.forEach((field, index) => {
-        // ... (código do loop forEach continua igual, gerando os cards) ...
-        const type = field.getAttribute('data-field-type');
-        const label = field.querySelector('.editable-label').innerText.replace(/\n/g, '').trim() || 'Sem Título';
-        const isRequired = field.classList.contains('required-active');
+        this.activeField = fieldElement;
+        const type = fieldElement.getAttribute('data-field-type');
+        const label = fieldElement.querySelector('.editable-label').innerText;
+        const helpEl = fieldElement.querySelector('.help-text');
+        const helpText = helpEl ? helpEl.innerText : '';
+        const isRequired = fieldElement.classList.contains('required-active');
         
-        listHtml += `
-            <div class="info-card" onclick="InteractionManager.selectField(event, document.querySelectorAll('#formCanvas .form-group')[${index}])">
-                <div class="info-line"><span class="info-label">#${index + 1} Nome</span> <span class="info-value info-hl">${label}</span></div>
-                <div class="info-line"><span class="info-label">Tipo</span> <span class="info-value">${this._translateType(type)}</span></div>
-                <div class="info-line"><span class="info-label">Obrigatório</span> <span class="info-value" style="color: ${isRequired ? '#e74c3c' : '#2ecc71'}">${isRequired ? 'Sim' : 'Não'}</span></div>
-                <div style="text-align:right; font-size:10px; color:#555; margin-top:4px;">clique para editar</div>
-            </div>`;
-    });
+        let html = `
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px; padding-bottom:10px; border-bottom:1px solid #444;">
+                <h2 style="margin:0; border:none; font-size:14px;">Editar Campo</h2> 
+                <button onclick="InteractionManager.deselectAll()" style="background:none; border:none; color:#e74c3c; cursor:pointer; font-size:11px; font-weight:bold;">✕ FECHAR</button>
+            </div>
+            <div class="prop-group">
+                <label class="prop-label">Título do Campo</label>
+                <input type="text" class="prop-input" value="${label}" onkeyup="PropertiesPanel.updateLabel(this.value)">
+            </div>
+            <div class="prop-group">
+                <label class="prop-label">Descrição de Ajuda</label>
+                <input type="text" class="prop-input" value="${helpText}" placeholder="Ex: Instruções..." onkeyup="PropertiesPanel.updateHelp(this.value)">
+            </div>
+        `;
 
-    this.container.innerHTML = listHtml;
-}
+        if(type === 'text' || type === 'textarea') {
+            const input = fieldElement.querySelector('.form-control');
+            const placeholder = input ? input.placeholder : '';
+            html += `<div class="prop-group"><label class="prop-label">Placeholder (Dica)</label><input type="text" class="prop-input" value="${placeholder}" onkeyup="PropertiesPanel.updatePlaceholder(this.value)"></div>`;
+        }
+        if(type !== 'header') {
+            html += `<div class="prop-group"><label class="prop-checkbox"><input type="checkbox" ${isRequired ? 'checked' : ''} onchange="PropertiesPanel.updateRequired(this.checked)"> Marcar como Obrigatório</label></div>`;
+        }
+        if(type === 'select' || type === 'radio') {
+            html += this._renderOptionsManager(fieldElement);
+        }
+        html += `<button class="btn-delete-element" onclick="PropertiesPanel.deleteActiveField()">🗑 Excluir Campo</button>`;
 
-    // ESTADO 2: MODO RESUMO (Lista os itens)
+        this.container.innerHTML = html;
+    }
+
+    // ESTADO 2: MODO RESUMO
     static renderSummary() {
         this.activeField = null;
         this.container.innerHTML = '';
@@ -190,11 +142,9 @@ static renderSummary() {
         
         fields.forEach((field, index) => {
             const type = field.getAttribute('data-field-type');
-            // Remove quebras de linha para não quebrar o HTML
             const label = field.querySelector('.editable-label').innerText.replace(/\n/g, '').trim() || 'Sem Título';
             const isRequired = field.classList.contains('required-active');
             
-            // HTML DO CARD (Usa as classes novas do CSS)
             listHtml += `
                 <div class="info-card" onclick="InteractionManager.selectField(event, document.querySelectorAll('#formCanvas .form-group')[${index}])">
                     <div class="info-line">
@@ -209,9 +159,6 @@ static renderSummary() {
                         <span class="info-label">Obrigatório</span> 
                         <span class="info-value" style="color: ${isRequired ? '#e74c3c' : '#2ecc71'}">${isRequired ? 'Sim' : 'Não'}</span>
                     </div>
-                    <div style="text-align:right; font-size:10px; color:#555; margin-top:4px;">
-                        clique para editar
-                    </div>
                 </div>
             `;
         });
@@ -219,7 +166,6 @@ static renderSummary() {
         this.container.innerHTML = listHtml;
     }
 
-    // --- MÉTODOS DE ATUALIZAÇÃO ---
     static updateLabel(val) { if(this.activeField) this.activeField.querySelector('.editable-label').innerText = val; }
     
     static updateHelp(val) {
@@ -320,7 +266,7 @@ static renderSummary() {
 }
 
 /**
- * CLASSE 3: FORM CANVAS
+ * CLASSE 3: FORM CANVAS (GERENCIA O GRID)
  */
 class FormCanvas {
     constructor(canvasId, emptyMsgId) {
@@ -334,12 +280,10 @@ class FormCanvas {
         this.canvas.addEventListener('dragleave', () => this.canvas.classList.remove('drag-over'));
         this.canvas.addEventListener('drop', (e) => this._handleDrop(e));
         
-        // Listener para atualizar o resumo se o usuário editar o Label diretamente no Canvas
+        // Listener para atualizar o resumo
         this.canvas.addEventListener('input', (e) => {
             if (e.target.classList.contains('editable-label')) {
-                if(e.target.closest('.form-group.selected')) {
-                    // (Opcional) Sincronizar input da sidebar
-                } else {
+                if(!e.target.closest('.form-group.selected')) {
                     PropertiesPanel.renderSummary();
                 }
             }
@@ -378,14 +322,27 @@ class FormCanvas {
         }
     }
 
+    // --- NOVA LÓGICA DE DETECÇÃO DE POSIÇÃO GRID/FLEX ---
     _getDragAfterElement(x, y) {
         const draggableElements = [...this.canvas.querySelectorAll('.form-group:not(.dragging)')];
+
         return draggableElements.find(child => {
             const box = child.getBoundingClientRect();
-            if (y < box.top - 10) return true;
+
+            // 1. Verifica se o mouse está na mesma linha vertical do elemento (com margem de erro)
             if (y >= box.top - 10 && y <= box.bottom + 10) {
-                 if (x < box.left + box.width / 2) return true;
+                // 2. Se está na mesma linha, verifica se está à esquerda do centro horizontal
+                if (x < box.left + box.width / 2) {
+                    return true;
+                }
             }
+            
+            // 3. Caso especial: Se o mouse está numa linha claramente acima do elemento atual
+            // isso ajuda a inserir no final de uma linha anterior ou inicio da atual
+            if (y < box.top - 15) {
+                return true;
+            }
+
             return false;
         });
     }
@@ -400,7 +357,8 @@ class FormCanvas {
 
     _addInternalDragEvents(item) {
         item.addEventListener('dragstart', (e) => {
-            if (e.target.closest('.rich-content-area') || e.target.closest('input') || e.target.closest('.field-resizer')) {
+            // Evita arrastar se clicar no input ou no resizer
+            if (e.target.closest('.rich-content-area') || e.target.closest('input') || e.target.closest('.field-resizer') || e.target.closest('textarea')) {
                  e.preventDefault(); return;
             }
             e.dataTransfer.setData('origin', 'internal');
@@ -413,13 +371,33 @@ class FormCanvas {
         });
     }
 
+    // --- REDIMENSIONAMENTO PARA FLEXBOX ---
     _makeResizable(element) {
         const resizer = element.querySelector('.field-resizer');
+        
+        // Headers são sempre 100%, não redimensionam
+        if(element.getAttribute('data-field-type') === 'header') {
+            resizer.style.display = 'none';
+            return;
+        }
+
         resizer.addEventListener('mousedown', (e) => {
             e.preventDefault(); e.stopPropagation();
+            
             const startX = e.clientX;
-            const startWidth = parseInt(document.defaultView.getComputedStyle(element).width, 10);
-            const doDrag = (e) => { element.style.width = (startWidth + (e.clientX - startX)) + 'px'; };
+            const startWidth = element.getBoundingClientRect().width;
+            const parentWidth = this.canvas.getBoundingClientRect().width;
+
+            const doDrag = (e) => {
+                let newWidth = startWidth + (e.clientX - startX);
+                
+                // Limites mínimos e máximos
+                if (newWidth < 150) newWidth = 150; // Mínimo razoável
+                if (newWidth > parentWidth - 40) newWidth = parentWidth - 40; // Máximo container
+
+                element.style.width = `${newWidth}px`;
+            };
+
             const stopDrag = () => { 
                 window.removeEventListener('mousemove', doDrag); 
                 window.removeEventListener('mouseup', stopDrag);

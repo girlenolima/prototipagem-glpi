@@ -1,43 +1,33 @@
 @charset "UTF-8";
 
 /* =========================================
-   1. VARIÁVEIS E CORES (TEMA PADRONIZADO)
+   1. VARIÁVEIS E CORES
    ========================================= */
 :root {
-    /* Cores Base (Baseadas na Sidebar Esquerda) */
-    --color-primary-dark: #2c3e50;    /* Fundo das Sidebars */
-    --color-secondary-dark: #34495e;  /* Fundo dos Itens/Cards */
-    --color-hover: #4b6584;           /* Hover dos Itens */
-    --color-accent: #3498db;          /* Azul Destaque (Bordas/Ícones) */
-    --color-danger: #e74c3c;          /* Vermelho (Excluir/Erro) */
-    --color-success: #2ecc71;         /* Verde (Sucesso/Obrigatório) */
-
-    /* Cores de Texto */
-    --text-light: #ecf0f1;            /* Texto em fundo escuro */
-    --text-muted: #bdc3c7;            /* Texto secundário em fundo escuro */
-    --text-dark: #2c3e50;             /* Texto em fundo claro */
-
-    /* Cores da Página e Canvas */
+    --color-primary-dark: #2c3e50;
+    --color-secondary-dark: #34495e;
+    --color-hover: #4b6584;
+    --color-accent: #3498db;
+    --color-danger: #e74c3c;
+    --color-success: #2ecc71;
+    --text-light: #ecf0f1;
+    --text-muted: #bdc3c7;
+    --text-dark: #2c3e50;
     --bg-page: #f5f7fa;
     --bg-canvas: #ffffff;
     --border-color: #dcdcdc;
-    
-    /* Configurações Globais */
     --sidebar-width-left: 250px;
-    --sidebar-width-right: 300px; /* Ajustei para caber melhor */
+    --sidebar-width-right: 300px;
     --border-radius: 4px;
 }
 
 /* =========================================
-   2. RESET E ESTRUTURA GLOBAL
+   2. ESTRUTURA GLOBAL
    ========================================= */
-* {
-    box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
-    margin: 0;
-    padding: 0;
+    margin: 0; padding: 0;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     font-size: 13px;
     background-color: var(--bg-page);
@@ -50,7 +40,7 @@ body {
 }
 
 /* =========================================
-   3. SIDEBAR ESQUERDA (COMPONENTES)
+   3. SIDEBAR ESQUERDA
    ========================================= */
 .sidebar {
     width: var(--sidebar-width-left);
@@ -58,284 +48,129 @@ body {
     background-color: var(--color-primary-dark);
     color: var(--text-light);
     padding: 15px;
-    display: flex;
-    flex-direction: column;
+    display: flex; flex-direction: column;
     box-shadow: 2px 0 10px rgba(0, 0, 0, 0.15);
     z-index: 10;
 }
 
 .sidebar h2 {
-    font-size: 14px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin: 0 0 20px 0;
-    text-align: center;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    padding-bottom: 10px;
+    font-size: 14px; text-transform: uppercase; letter-spacing: 1px; margin: 0 0 20px 0;
+    text-align: center; border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 10px;
     color: var(--text-muted);
 }
 
 .draggable-item {
-    background-color: var(--color-secondary-dark); /* Cor Padronizada */
+    background-color: var(--color-secondary-dark);
     color: var(--text-light);
-    padding: 10px 12px;
-    margin-bottom: 8px;
+    padding: 10px 12px; margin-bottom: 8px;
     border-radius: var(--border-radius);
-    cursor: grab;
-    transition: all 0.2s ease;
-    display: flex;
-    align-items: center;
+    cursor: grab; transition: all 0.2s ease;
+    display: flex; align-items: center;
     border: 1px solid transparent;
 }
-
 .draggable-item:hover {
     background-color: var(--color-hover);
-    border-left: 4px solid var(--color-accent);
-    padding-left: 8px; /* Compensa a borda para não pular */
+    border-left: 4px solid var(--color-accent); padding-left: 8px;
 }
+.draggable-item i { margin-right: 10px; color: var(--color-accent); font-weight: bold; width: 20px; text-align: center; }
 
-.draggable-item i {
-    margin-right: 10px;
-    color: var(--color-accent);
-    font-weight: bold;
-    width: 20px;
-    text-align: center;
-}
-
-/* Rodapé da Sidebar */
-.footer-msg {
-    margin-top: auto;
-    font-size: 11px;
-    color: var(--text-muted);
-    text-align: center;
-}
-
+.footer-msg { margin-top: auto; font-size: 11px; color: var(--text-muted); text-align: center; }
 .linkedin-link {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    margin-top: 10px;
-    color: var(--text-muted);
-    text-decoration: none;
-    font-weight: bold;
-    padding: 8px;
-    border-radius: var(--border-radius);
-    transition: background 0.2s;
+    display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 10px;
+    color: var(--text-muted); text-decoration: none; font-weight: bold; padding: 8px;
+    border-radius: var(--border-radius); transition: background 0.2s;
 }
-
-.linkedin-link:hover {
-    background: rgba(255,255,255,0.1);
-    color: #fff;
-}
+.linkedin-link:hover { background: rgba(255,255,255,0.1); color: #fff; }
 
 /* =========================================
-   4. SIDEBAR DIREITA (ESTRUTURA/PROPRIEDADES)
+   4. SIDEBAR DIREITA
    ========================================= */
 .structure-sidebar {
     width: var(--sidebar-width-right);
     flex-shrink: 0;
-    background-color: var(--color-primary-dark); /* Agora igual à esquerda */
+    background-color: var(--color-primary-dark);
     color: var(--text-light);
     padding: 15px;
-    display: flex;
-    flex-direction: column;
+    display: flex; flex-direction: column;
     box-shadow: -2px 0 10px rgba(0, 0, 0, 0.15);
     z-index: 10;
     border-left: 1px solid rgba(0,0,0,0.2);
 }
-
 .structure-sidebar h2 {
-    font-size: 14px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin: 0 0 20px 0;
-    text-align: center;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    padding-bottom: 10px;
+    font-size: 14px; text-transform: uppercase; letter-spacing: 1px; margin: 0 0 20px 0;
+    text-align: center; border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 10px;
     color: var(--text-muted);
 }
+#structureContent { flex: 1; overflow-y: auto; overflow-x: hidden; margin-bottom: 15px; padding-right: 5px; }
 
-#structureContent {
-    flex: 1;
-    overflow-y: auto;
-    overflow-x: hidden;
-    margin-bottom: 15px;
-    padding-right: 5px;
-}
-
-/* --- Cards de Resumo (Estilo igual ao Draggable Item) --- */
+/* Cards de Resumo */
 .info-card {
-    background-color: var(--color-secondary-dark); /* Cor Padronizada */
+    background-color: var(--color-secondary-dark);
     border-left: 4px solid var(--color-accent);
-    padding: 12px;
-    margin-bottom: 8px;
+    padding: 12px; margin-bottom: 8px;
     border-radius: var(--border-radius);
-    font-family: Consolas, "Courier New", monospace;
-    font-size: 12px;
-    cursor: pointer;
-    transition: all 0.2s ease;
+    font-family: Consolas, "Courier New", monospace; font-size: 12px;
+    cursor: pointer; transition: all 0.2s ease;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
-
-.info-card:hover {
-    background-color: var(--color-hover);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-}
-
-.info-line {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 5px;
-    border-bottom: 1px dashed rgba(255,255,255,0.1);
-    padding-bottom: 3px;
-}
-.info-line:last-child {
-    border-bottom: none;
-    margin-bottom: 0;
-}
-
+.info-card:hover { background-color: var(--color-hover); transform: translateY(-2px); }
+.info-line { display: flex; justify-content: space-between; margin-bottom: 5px; border-bottom: 1px dashed rgba(255,255,255,0.1); padding-bottom: 3px; }
+.info-line:last-child { border-bottom: none; margin-bottom: 0; }
 .info-label { color: var(--text-muted); }
 .info-value { color: #fff; font-weight: bold; max-width: 140px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.info-hl { color: var(--color-accent); } /* Destaque azul */
+.info-hl { color: var(--color-accent); }
 
-/* --- Inputs do Painel de Propriedades --- */
-.prop-group {
-    margin-bottom: 15px;
-    padding-bottom: 15px;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-}
+/* Inputs Propriedades */
+.prop-group { margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+.prop-label { display: block; color: var(--text-muted); font-size: 11px; font-weight: bold; margin-bottom: 5px; text-transform: uppercase; }
+.prop-input { width: 100%; padding: 8px; background-color: rgba(0,0,0,0.2); border: 1px solid var(--color-secondary-dark); color: #fff; border-radius: var(--border-radius); font-size: 12px; }
+.prop-input:focus { border-color: var(--color-accent); outline: none; background-color: rgba(0,0,0,0.4); }
+.prop-checkbox { display: flex; align-items: center; gap: 8px; color: var(--text-light); cursor: pointer; }
 
-.prop-label {
-    display: block;
-    color: var(--text-muted);
-    font-size: 11px;
-    font-weight: bold;
-    margin-bottom: 5px;
-    text-transform: uppercase;
-}
+/* Lista de Opções */
+.sidebar-options-list { list-style: none; padding: 0; margin-top: 10px; }
+.sidebar-opt-item { background: rgba(0,0,0,0.2); padding: 6px 10px; margin-bottom: 4px; border-radius: var(--border-radius); display: flex; justify-content: space-between; align-items: center; color: var(--text-light); border: 1px solid transparent; }
+.sidebar-opt-remove { color: var(--color-danger); cursor: pointer; font-weight: bold; }
+.btn-add-opt { background: var(--color-success); color: white; border: none; padding: 0 12px; border-radius: var(--border-radius); cursor: pointer; font-weight: bold; height: 32px; }
 
-.prop-input {
-    width: 100%;
-    padding: 8px;
-    background-color: rgba(0,0,0,0.2); /* Fundo escuro sutil */
-    border: 1px solid var(--color-secondary-dark);
-    color: #fff;
-    border-radius: var(--border-radius);
-    font-size: 12px;
-}
-
-.prop-input:focus {
-    border-color: var(--color-accent);
-    outline: none;
-    background-color: rgba(0,0,0,0.4);
-}
-
-.prop-checkbox {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    color: var(--text-light);
-    cursor: pointer;
-}
-
-/* Lista de Opções (Select/Radio) */
-.sidebar-options-list {
-    list-style: none;
-    padding: 0;
-    margin-top: 10px;
-}
-
-.sidebar-opt-item {
-    background: rgba(0,0,0,0.2);
-    padding: 6px 10px;
-    margin-bottom: 4px;
-    border-radius: var(--border-radius);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: var(--text-light);
-    border: 1px solid transparent;
-}
-
-.sidebar-opt-remove {
-    color: var(--color-danger);
-    cursor: pointer;
-    font-weight: bold;
-}
-.sidebar-opt-remove:hover { color: #ff6b6b; }
-
-.btn-add-opt {
-    background: var(--color-success);
-    color: white;
-    border: none;
-    padding: 0 12px;
-    border-radius: var(--border-radius);
-    cursor: pointer;
-    font-weight: bold;
-    height: 32px;
-}
-
-/* Botões de Ação na Sidebar Direita */
+/* Botões */
 .btn-download, .btn-copy, .btn-delete-element {
-    width: 100%;
-    padding: 10px;
-    border: none;
-    border-radius: var(--border-radius);
-    cursor: pointer;
-    font-weight: bold;
-    font-size: 12px;
-    text-transform: uppercase;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    transition: background 0.2s;
-    color: #fff;
+    width: 100%; padding: 10px; border: none; border-radius: var(--border-radius);
+    cursor: pointer; font-weight: bold; font-size: 12px; text-transform: uppercase;
+    display: flex; align-items: center; justify-content: center; gap: 8px; transition: background 0.2s; color: #fff;
 }
-
-.btn-copy {
-    background-color: var(--color-secondary-dark);
-    border: 1px solid var(--color-hover);
-    margin-top: auto;
-    margin-bottom: 10px;
-}
+.btn-copy { background-color: var(--color-secondary-dark); border: 1px solid var(--color-hover); margin-top: auto; margin-bottom: 10px; }
 .btn-copy:hover { background-color: var(--color-hover); }
-
-.btn-download {
-    background-color: var(--color-accent);
-}
+.btn-download { background-color: var(--color-accent); }
 .btn-download:hover { background-color: #2980b9; }
-
-.btn-delete-element {
-    background-color: var(--color-danger);
-    margin-top: 15px;
-}
+.btn-delete-element { background-color: var(--color-danger); margin-top: 15px; }
 .btn-delete-element:hover { background-color: #c0392b; }
 
 /* =========================================
-   5. ÁREA PRINCIPAL (CANVAS)
+   5. ÁREA PRINCIPAL (CANVAS) - MODIFICADA PARA FLEXBOX
    ========================================= */
 .main-content {
-    flex: 1;
-    padding: 30px;
-    overflow: auto;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
+    flex: 1; padding: 30px; overflow: auto;
+    display: flex; justify-content: center; align-items: flex-start;
 }
 
 .form-canvas {
     background-color: var(--bg-canvas);
     width: 850px;
     min-width: 320px;
-    min-height: 800px; /* Aumentado para parecer uma folha A4 */
+    min-height: 800px;
     border: 1px solid var(--border-color);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
     position: relative;
     padding-bottom: 40px;
     margin-bottom: 50px;
+    
+    /* --- CONFIGURAÇÃO GRID/FLEX --- */
+    display: flex;
+    flex-wrap: wrap;           /* Permite quebra de linha */
+    align-content: flex-start; /* Linhas começam do topo */
+    align-items: flex-start;   /* Itens alinhados no topo */
+    padding: 20px;
 }
 
 .form-canvas.drag-over {
@@ -343,213 +178,102 @@ body {
     background-color: rgba(52, 152, 219, 0.05);
 }
 
-/* Header do Formulário */
 .form-header {
-    background-color: #eef2f8; /* Mantido claro para contraste com o papel branco */
+    /* --- CORREÇÃO DE TAMANHO --- */
+    /* O pai tem 20px de padding. O calc aumenta 40px (20 esq + 20 dir) para compensar */
+    width: calc(100% + 40px); 
+    
+    /* Margens negativas puxam o elemento para fora do padding do pai */
+    margin-top: -20px;
+    margin-left: -20px;
+    margin-right: -20px;
+    
+    /* Garante que o Flexbox não tente encolher o header */
+    flex-shrink: 0; 
+    
+    /* --- ESTILO VISUAL --- */
+    background-color: #eef2f8;
     border-bottom: 1px solid var(--border-color);
     padding: 20px 30px;
-    margin-bottom: 20px;
+    
+    /* Espaço abaixo do header antes de começar os campos */
+    margin-bottom: 20px; 
 }
+.form-header h1 { margin: 0; font-size: 18px; font-weight: 700; color: var(--color-primary-dark); outline: none; }
+.form-header p { margin: 5px 0 0 0; color: #7f8c8d; outline: none; }
 
-.form-header h1 {
-    margin: 0;
-    font-size: 18px;
-    font-weight: 700;
-    color: var(--color-primary-dark);
-    outline: none;
-}
-
-.form-header p {
-    margin: 5px 0 0 0;
-    color: #7f8c8d;
-    outline: none;
-}
-
-.empty-message {
-    width: 100%;
-    text-align: center;
-    color: #bdc3c7;
-    margin-top: 80px;
-    pointer-events: none;
-    font-style: italic;
-    font-size: 14px;
-}
+.empty-message { width: 100%; text-align: center; color: #bdc3c7; margin-top: 80px; pointer-events: none; font-style: italic; font-size: 14px; }
 
 /* =========================================
    6. ITENS DO FORMULÁRIO (DROP ZONE)
    ========================================= */
 .form-group {
     position: relative;
-    padding: 10px 30px; /* Padding lateral maior para parecer formulário real */
+    padding: 10px 15px;
     margin: 0;
     transition: background 0.2s;
     border: 2px solid transparent;
-    cursor: pointer;
+    cursor: grab;
+    
+    /* --- LÓGICA DE TAMANHO --- */
+    width: 100%;         /* Padrão ao criar */
+    flex: 0 0 auto;      /* Respeita o width definido via style inline (redimensionador) */
+    box-sizing: border-box; 
 }
 
-.form-group:hover {
-    background-color: #f8f9fa;
-}
+.form-group:hover { background-color: #f8f9fa; z-index: 2; }
+.form-group.selected { border-color: var(--color-accent); background-color: rgba(52, 152, 219, 0.05); z-index: 3; }
+.form-group.dragging { opacity: 0.5; background-color: #ecf0f1; border: 2px dashed #95a5a6; }
 
-.form-group.selected {
-    border-color: var(--color-accent);
-    background-color: rgba(52, 152, 219, 0.05);
-    z-index: 5;
-}
+.form-group label.editable-label { display: block; margin-bottom: 6px; font-size: 13px; font-weight: 600; color: var(--text-dark); pointer-events: none; }
+.form-group.required-active label.editable-label::after { content: " *"; color: var(--color-danger); }
 
-.form-group.dragging {
-    opacity: 0.5;
-    background-color: #ecf0f1;
-    border: 2px dashed #95a5a6;
-}
+.form-control { width: 100%; padding: 8px 12px; font-size: 13px; color: #555; background-color: #fff; border: 1px solid var(--border-color); border-radius: var(--border-radius); pointer-events: none; }
+textarea.form-control { resize: none; height: 80px; }
 
-/* Label Editável */
-.form-group label.editable-label {
-    display: block;
-    margin-bottom: 6px;
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--text-dark);
-    pointer-events: none;
-}
-
-.form-group.required-active label.editable-label::after {
-    content: " *";
-    color: var(--color-danger);
-}
-
-/* Inputs (Visualização) */
-.form-control {
-    width: 100%;
-    padding: 8px 12px;
-    font-size: 13px;
-    color: #555;
-    background-color: #fff;
-    border: 1px solid var(--border-color);
-    border-radius: var(--border-radius);
-    pointer-events: none; /* Desativa interação no canvas */
-}
-
-textarea.form-control {
-    resize: none;
-    height: 80px;
-}
-
-/* Estilo específico para Header de Seção */
+/* TÍTULOS DE SEÇÃO - SEMPRE 100% */
 .form-group[data-field-type="header"] {
-    margin-top: 15px;
-    margin-bottom: 5px;
+    width: 100% !important;
+    margin-top: 15px; margin-bottom: 5px;
+    flex-basis: 100%;
 }
 
-/* Ferramentas de Edição (Resize/Move) */
+/* Ferramentas */
 .move-handle {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 40px;
-    height: 6px;
-    background-color: var(--color-accent);
-    cursor: move;
-    border-radius: 0 0 4px 4px;
-    display: none;
-    z-index: 10;
+    position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+    width: 40px; height: 6px; background-color: var(--color-accent);
+    cursor: move; border-radius: 0 0 4px 4px; display: none; z-index: 10;
 }
 .form-group:hover .move-handle { display: block; }
 
 .field-resizer {
-    width: 10px;
-    height: 100%;
-    position: absolute;
-    right: 0;
-    top: 0;
-    cursor: col-resize;
-    z-index: 6;
+    width: 12px; height: 100%; position: absolute; right: 0; top: 0;
+    cursor: col-resize; z-index: 6;
 }
-.form-group:hover .field-resizer { background: rgba(0, 0, 0, 0.03); }
+.form-group:hover .field-resizer { background: rgba(0, 0, 0, 0.05); }
 
-/* Resizer do Canvas Principal */
+/* Resizer do Canvas */
 .canvas-resizer {
-    width: 15px;
-    height: 100%;
-    background: #e9ecef;
-    position: absolute;
-    right: -15px;
-    top: 0;
-    cursor: ew-resize;
-    border-left: 1px solid #dee2e6;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #aaa;
+    width: 15px; height: 100%; background: #e9ecef; position: absolute; right: -15px; top: 0;
+    cursor: ew-resize; border-left: 1px solid #dee2e6; display: flex; align-items: center; justify-content: center; color: #aaa;
 }
 .canvas-resizer::after { content: "⋮"; }
-
-.width-display {
-    position: absolute;
-    bottom: -25px;
-    right: 0;
-    background: var(--color-primary-dark);
-    color: #fff;
-    padding: 4px 8px;
-    font-size: 10px;
-    border-radius: 3px;
-    opacity: 0;
-    transition: opacity 0.2s;
-}
+.width-display { position: absolute; bottom: -25px; right: 0; background: var(--color-primary-dark); color: #fff; padding: 4px 8px; font-size: 10px; border-radius: 3px; opacity: 0; transition: opacity 0.2s; }
 .canvas-resizer:active .width-display { opacity: 1; }
 
 /* =========================================
    7. RICHTEXT E OUTROS
    ========================================= */
-.rich-editor-container {
-    width: 100%;
-    border: 1px solid var(--border-color);
-    border-radius: var(--border-radius);
-    background: #fff;
-}
-.rich-toolbar {
-    background-color: #f9f9f9;
-    border-bottom: 1px solid #e5e5e5;
-    padding: 5px;
-    display: flex; gap: 5px;
-}
-.rt-btn {
-    border: 1px solid #ccc;
-    background: #fff;
-    cursor: pointer;
-    padding: 2px 8px;
-    font-weight: bold;
-    font-family: serif;
-}
+.rich-editor-container { width: 100%; border: 1px solid var(--border-color); border-radius: var(--border-radius); background: #fff; }
+.rich-toolbar { background-color: #f9f9f9; border-bottom: 1px solid #e5e5e5; padding: 5px; display: flex; gap: 5px; }
+.rt-btn { border: 1px solid #ccc; background: #fff; cursor: pointer; padding: 2px 8px; font-weight: bold; font-family: serif; }
 .rich-content-area { min-height: 80px; padding: 10px; }
 
-/* =========================================
-   8. SCROLLBARS CUSTOMIZADAS (WEBKIT)
-   ========================================= */
-::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-}
-::-webkit-scrollbar-track {
-    background: rgba(0,0,0,0.1);
-}
-::-webkit-scrollbar-thumb {
-    background-color: rgba(0,0,0,0.2);
-    border-radius: 4px;
-}
-::-webkit-scrollbar-thumb:hover {
-    background-color: rgba(0,0,0,0.4);
-}
-
-/* Scrollbar específica para Sidebar (Dark) */
-#structureContent::-webkit-scrollbar-track {
-    background: transparent;
-}
-#structureContent::-webkit-scrollbar-thumb {
-    background-color: rgba(255,255,255,0.2);
-    border: 2px solid var(--color-primary-dark);
-}
-#structureContent::-webkit-scrollbar-thumb:hover {
-    background-color: rgba(255,255,255,0.4);
-}
+/* Scrollbars */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+::-webkit-scrollbar-thumb { background-color: rgba(0,0,0,0.2); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background-color: rgba(0,0,0,0.4); }
+#structureContent::-webkit-scrollbar-track { background: transparent; }
+#structureContent::-webkit-scrollbar-thumb { background-color: rgba(255,255,255,0.2); border: 2px solid var(--color-primary-dark); }
+#structureContent::-webkit-scrollbar-thumb:hover { background-color: rgba(255,255,255,0.4); }
